@@ -1,49 +1,53 @@
 
 # Retail-Data-Pipeline
-Creating a data pipeline for the analysis of supply and demand around the holidays, along with conducting a preliminary analysis of the data. You will be working with two data sources: grocery sales and complementary data.
+
 
 ![walmartecomm](https://github.com/user-attachments/assets/0b7ae885-93b0-48f2-992f-f66df1be61dc)
 
-Walmart is the biggest retail store in the United States. Just like others, they have been expanding their e-commerce part of the business. By the end of 2022, e-commerce represented a roaring $80 billion in sales, which is 13% of total sales of Walmart. One of the main factors that affects their sales is public holidays, like the Super Bowl, Labour Day, Thanksgiving, and Christmas. 
 
-In this project, you have been tasked with creating a data pipeline for the analysis of supply and demand around the holidays, along with conducting a preliminary analysis of the data. You will be working with two data sources: grocery sales and complementary data. You have been provided with the `grocery_sales` table in `PostgreSQL` database with the following features:
+This repository contains the code and documentation for a robust data pipeline that ingests, transforms, and loads retail data from various sources into a data warehouse. The pipeline is built using popular open-source tools and frameworks, making it scalable and easy to maintain.
 
-# `grocery_sales`
-- `"index"` - unique ID of the row
-- `"Store_ID"` - the store number
-- `"Date"` - the week of sales
-- `"Weekly_Sales"` - sales for the given store
+## Key Features
 
-Also, you have the `extra_data.parquet` file that contains complementary data:
+- **Data Ingestion**: Supports ingestion from multiple data sources, including CSV files, SQL databases, and APIs.
+- **Data Transformation**: Applies a series of transformations to clean, enrich, and standardize the data using Apache Spark.
+- **Data Loading**: Loads the transformed data into a data warehouse (e.g., Snowflake, BigQuery, Redshift) for analysis and reporting.
+- **Orchestration**: Uses Apache Airflow to orchestrate the end-to-end data pipeline, ensuring reliable and scheduled execution.
+- **Monitoring and Alerting**: Implements comprehensive monitoring and alerting to proactively detect and address pipeline issues.
+- **Scalability**: Designed to handle growing data volumes and adapt to changing business requirements.
 
-# `extra_data.parquet`
-- `"IsHoliday"` - Whether the week contains a public holiday - 1 if yes, 0 if no.
-- `"Temperature"` - Temperature on the day of sale
-- `"Fuel_Price"` - Cost of fuel in the region
-- `"CPI"` – Prevailing consumer price index
-- `"Unemployment"` - The prevailing unemployment rate
-- `"MarkDown1"`, `"MarkDown2"`, `"MarkDown3"`, `"MarkDown4"` - number of promotional markdowns
-- `"Dept"` - Department Number in each store
-- `"Size"` - size of the store
-- `"Type"` - type of the store (depends on `Size` column)
+## Getting Started
 
-You will need to merge those files and perform some data manipulations. The transformed DataFrame can then be stored as the `clean_data` variable containing the following columns:
-- `"Store_ID"`
-- `"Month"`
-- `"Dept"`
-- `"IsHoliday"`
-- `"Weekly_Sales"`
-- `"CPI"`
-- "`"Unemployment"`"
+To get started with the Retail Data Pipeline, please follow these steps:
 
-After merging and cleaning the data, you will have to analyze monthly sales of Walmart and store the results of your analysis as the `agg_data` variable that should look like:
+1. **Prerequisites**:
+   - Install Docker and Docker Compose on your local machine.
+   - Ensure you have access to the necessary data sources (e.g., SQL databases, APIs) and a data warehouse (e.g., Snowflake, BigQuery, Redshift).
 
-|  Month | Weekly_Sales  | 
-|---|---|
-| 1.0  |  33174.178494 |
-|  2.0 |  34333.326579 |
-|  ... | ...  |  
+2. **Clone the Repository**:
+   ```
+   git clone https://github.com/MuziZwane/Retail-Data-Pipeline.git
+   cd Retail-Data-Pipeline
+   ```
 
-Finally, you should save the `clean_data` and `agg_data` as the csv files.
+3. **Configure the Pipeline**:
+   - Update the `config.py` file with your data source and data warehouse credentials and settings.
+   - Customize the data transformation logic in the `transform.py` file to meet your specific requirements.
 
-It is recommended to use `pandas` for this project. 
+4. **Deploy the Pipeline**:
+   ```
+   docker-compose up -d
+   ```
+   This will start the Airflow webserver and scheduler, as well as the other services required for the pipeline.
+
+5. **Monitor the Pipeline**:
+   - Access the Airflow webUI at `http://localhost:8080` and observe the pipeline's execution.
+   - Configure email or Slack alerts to receive notifications about pipeline failures or other critical events.
+
+## Contributing
+
+If you find any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request. We welcome contributions to help make the Retail Data Pipeline even better!
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
